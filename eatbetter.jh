@@ -1,0 +1,179 @@
+application {
+  config {
+    baseName eatbetter,
+    applicationType monolith,
+    packageName com.eatbetter.monolith,
+    authenticationType jwt,
+    prodDatabaseType mongodb,
+    devDatabaseType mongodb,
+    cacheProvider redis,
+    buildTool gradle,
+    clientFramework angular,
+    testFrameworks [cypress],
+    enableTranslation true,
+    nativeLanguage es,
+    languages [es, en, fr]
+  }
+
+  entities *
+}
+
+entity Patient {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  processNumber String required,
+  name String required,
+  birthDate LocalDate required,
+  occupation String,
+  gender String,
+  phone String,
+  address String,
+  postalCode String,
+  countryOfResidence String,
+  taxIdNumber String,
+  identificationNumber String,
+  individualHealthNumber String,
+  registrationDate Instant required,
+  tags String,
+  consultationPlace String
+}
+
+entity HealthHistory {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  consultationReason String,
+  expectations String,
+  clinicalGoals String,
+  otherConsultationInformation String,
+  bowelFunction String,
+  sleepQuality String,
+  smoker Boolean,
+  drinksAlcohol Boolean,
+  maritalStatus String,
+  physicalActivity String,
+  race String,
+  otherPersonalAndSocialHistory String,
+  pathologies String,
+  medication String,
+  personalBackground String,
+  familyBackground String,
+  otherClinicalInformation String,
+  usualWakeUpTime String,
+  usualBedTime String,
+  dietType String,
+  favoriteFoods String,
+  dislikedFoods String,
+  allergies String,
+  foodIntolerances String,
+  nutritionalDeficiencies String,
+  waterIntake String,
+  otherFoodInformation String,
+  goals String,
+  foodDiary String,
+  eatingBehaviors String,
+  observations String
+}
+
+entity PregnancyHistory {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  recordType String,
+  pregnancyType String,
+  lastMenstruation LocalDate,
+  lactationStart LocalDate,
+  lactationDurationMonths Integer,
+  observations String
+}
+
+entity Consultation {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  date LocalDate required,
+  startTime LocalTime,
+  endTime LocalTime,
+  notes String,
+  consultationNotes String
+}
+
+entity PatientMetrics {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  measurement String required,
+  date LocalDate required,
+  value Double required,
+  unit String,
+  recordedBy String
+}
+
+entity PatientPlanning {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  prePregnancyWeight Double,
+  currentWeight Double,
+  targetWeight Double,
+  weightUnit String,
+  currentHeight Double,
+  targetHeight Double,
+  heightUnit String,
+  currentBMI Double,
+  targetBMI Double,
+  bmiUnit String,
+  currentBodyFatPercentage Double,
+  targetBodyFatPercentage Double,
+  planningId String,
+  name String,
+  currentPhysicalActivityLevel String,
+  targetPhysicalActivityLevel String,
+  basalMetabolicRateFormula String,
+  currentBasalMetabolicRate Double,
+  bmrUnit String,
+  dailyEnergyNeedsFormula String,
+  currentDailyEnergyNeeds Double,
+  targetDailyEnergyNeeds Double,
+  energyNeedsUnit String,
+  proteinPercentage Double,
+  carbohydratePercentage Double,
+  lipidPercentage Double,
+  dietaryFiberAmount Double,
+  fiberUnit String,
+  startDate LocalDate,
+  lastChangeDate LocalDate,
+  endDate LocalDate,
+  alimentationPlanVersion1 String,
+  planningId1 String,
+  meals1 String,
+  alimentationPlanVersion2 String,
+  planningId2 String,
+  meals2 String,
+  alimentationPlanVersion3 String,
+  planningId3 String,
+  meals3 String,
+  alimentationPlanVersion4 String,
+  planningId4 String,
+  meals4 String,
+  alimentationPlanVersion5 String,
+  planningId5 String,
+  meals5 String,
+  alimentationPlanVersion6 String,
+  planningId6 String,
+  meals6 String,
+  alimentationPlanVersion7 String,
+  planningId7 String,
+  meals7 String,
+  alimentationPlanVersion8 String,
+  planningId8 String,
+  meals8 String
+}
+
+entity PatientRecommendations {
+  id UUID required,
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  foodsToAvoid String,
+  waterIntake String,
+  otherRecommendations String,
+  physicalExercise String
+}
+
+service Patient, HealthHistory, PregnancyHistory, Consultation, PatientMetrics, PatientPlanning, PatientRecommendations with serviceClass
+
+paginate Patient, HealthHistory, PregnancyHistory, Consultation, PatientMetrics, PatientPlanning, PatientRecommendations with infinite-scroll
